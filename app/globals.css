@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+.test{	border: 1px solid lime;}
+* {
+	margin: 0;
+	padding: 0;
+}
+html,
+body {
+	overflow-x: hidden;
+	
+}
+
+body {
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
+}
+
+p,
+li {
+	text-wrap: pretty;
+	overflow-wrap: break-word;
+}
