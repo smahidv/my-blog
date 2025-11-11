@@ -1,4 +1,5 @@
 export interface PostType {
+  _id?: string;
   category: string;
   title: string;
   desc: string;
@@ -6,4 +7,5 @@ export interface PostType {
   userId?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  slug: string;
 }

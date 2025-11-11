@@ -53,6 +53,10 @@ const postSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
+    slug: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

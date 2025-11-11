@@ -1,15 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import hero from "@/public/hero.png";
-import BlogDescription from "@/components/BlogDescription";
-import ai from "@/public/ai.png";
-import aiSquare from "@/public/aiSquare.png";
 import zigzagHeroBottom from "@/public/zigzagHeroBottom.png";
 import zigzagHeroTop from "@/public/zigzagHeroTop.png";
+import PopularPost from "@/components/PopularPost";
+import { getRecentPosts } from "./actions/post";
+import BlogDescription from "@/components/BlogDescription";
 
-export default function Home() {
+export default async function Home() {
+	const recentsPosts = await getRecentPosts();
 	return (
-		<main className="pt-[10px] lg:pt-0 bg-bodyColor ">       
+		<main className="pt-[10px] lg:pt-0 bg-bodyColor ">
 			<Image
 				src={zigzagHeroTop}
 				className="hidden desktop:block absolute z-30 left-0 -top-8 "
@@ -36,7 +37,7 @@ export default function Home() {
 							navigation, direction
 						</div>
 						<Link
-							href="/blog"
+							 href={`/blog/${recentsPosts[0].slug}`}
 							className=" block w-fit bg-white py-3 px-[35px] rounded-[5.74px] text-black text-[10px] desktop:text-sm font-bold "
 						>
 							Read more
@@ -45,21 +46,24 @@ export default function Home() {
 					<Image
 						src={hero}
 						alt="heroImage"
-						className="desktop:max-w-[608px] relative z-10"
+						className="desktop:max-w-[608px] relative z-10  "
 						placeholder="blur"
 					/>
 				</div>
 			</section>
 			<div className="max-w-[1234px]  mx-auto lg:px-[34px] desktop:px-0 px-6 ">
 				<section className="relative  bg-white rounded-[11.49px]  border-grayBorder border lg:bg-bodyColor lg:border-none lg:rounded-none lg:p-0 py-5 px-[17px] mt-[42px] mb-[65px] lg:mt-[94px]  lg:mb-[144.32px] desktop:mt-[130px] desktop:mb-[200px] ">
-					<Image
-						src={ai}
-						alt="heroImage"
-						placeholder="blur"
-						className="rounded-[5.65px]"
-					/>
-					<div className="mt-[26.7px] bg-white  lg:mt-0 lg:absolute lg:top-[241.26px] lg:right-0  desktoplg:top-[336px] lg:rounded-[11.49px] max-w-[660.59px] desktop:max-w-[920px] desktop:rounded-[16px] lg:p-[23px] lg:pr-[74.67px] desktop:pr-[104px] desktop:p-8 ">
-						<BlogDescription />
+					{recentsPosts[0].img && (
+						<Image
+							src={recentsPosts[0].img}
+							alt={recentsPosts[0].title}
+							width={1068}
+							height={684}
+							className=" rounded-[11.49px] desktop:rounded-[16px] w-full lg:h-[413px] desktop:h-[576px] object-cover "
+						/>
+					)}
+					<div className="mt-[26.7px] bg-white  lg:mt-0 lg:absolute lg:top-[241.26px] lg:right-0 lg:rounded-[11.49px] max-w-[660.59px] desktop:max-w-[920px] desktop:rounded-[16px] lg:p-[23px] lg:pr-[74.67px] desktop:pr-[104px] desktop:p-8 ">
+						<BlogDescription post={recentsPosts[0]} />
 					</div>
 				</section>
 				<section>
@@ -76,7 +80,7 @@ export default function Home() {
 						</Link>
 					</div>
 					<div className="space-y-[45px] mb-[57px] lg:mb-[75px] desktop:mb-[104px] lg:grid lg:grid-cols-3 lg:gap-x-[9.3px] desktop:gap-x-[15px] ">
-						{[...Array(4)].map((_, index) => (
+						{recentsPosts.map((item, index) => (
 							<div
 								key={index}
 								className={` space-y-[28.72px] lg:space-y-10 ${
@@ -84,44 +88,21 @@ export default function Home() {
 									"lg:col-span-4 lg:space-y-0 lg:flex lg:gap-x-[40.21px] desktop:gap-x-[56px] "
 								}"`}
 							>
-								<Image
-									src={aiSquare}
-									alt="heroImage"
-									placeholder="blur"
-									className="rounded-[5.65px] lg:w-[511.24] desktop:w-[712px]  "
-								/>
-								<BlogDescription />
+								{item.img && (
+									<Image
+										src={item.img}
+										alt={item.title}
+										width={712}
+										height={511}
+										className="rounded-[5.65px] lg:w-[511.24] desktop:w-[712px]  "
+									/>
+								)}
+								<BlogDescription post={item} />
 							</div>
 						))}
 					</div>
 				</section>
-				<section>
-					<div className="flex justify-between items-center mb-[37px] lg:mb-[58.24px] desktop:lg-mb-[87px] ">
-						<div className="text-[20px] lg:text-[34.47px] font-bold font-raleway capitalize">
-							Popular Post
-						</div>
-						<Link
-							href="/blog"
-							className=" text-white font-bold font-roboto text-[10.05px] desktop:text-sm
-								capitalize bg-purple py-3 px-[35px] desktop:px-12 desktop:py-4 rounded-[5.74px]"
-						>
-							view all
-						</Link>
-					</div>
-					<div className="gap-y-[45px] desktop:gap-[53px] pb-[96px] lg:pb-[137.5px] desktop:pb-[259px] grid lg:grid-cols-3 lg:gap-x-[9.3px] desktop:gap-x-[15px] ">
-						{[...Array(6)].map((_, index) => (
-							<div key={index} className="space-y-[28.72px] lg:space-y-10 ">
-								<Image
-									src={aiSquare}
-									alt="heroImage"
-									placeholder="blur"
-									className="rounded-[5.65px] lg:w-[511.24] desktop:w-[712px]  "
-								/>
-								<BlogDescription />
-							</div>
-						))}
-					</div>
-				</section>
+				<PopularPost />
 			</div>
 		</main>
 	);

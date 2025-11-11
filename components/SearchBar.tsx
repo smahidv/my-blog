@@ -15,11 +15,11 @@ export default function SearchBar() {
 		}
 	  };
 	return (
-		<li className={`relative   ${barState ? "lg:w-[200px] " : "lg:w-[16px] "}`}>
+		<li className={`relative px-6 lg:px-0  ${barState ? "lg:w-[200px] " : "lg:w-[16px] "}`}>
 			<input
 				type="text"
 				placeholder="Search..."
-				className={`p-2  lg:text-[11.49px]  shadow-sm rounded-sm lg:rounded-full border-[1.2px]  w-full  ${
+				className={` p-2  lg:text-[11.49px]  shadow-sm rounded-sm lg:rounded-full border-[1.2px]  w-full  ${
 					barState
 						? "scale-x-100 lg:transition-transform origin-right"
 						: "lg:scale-x-0"
@@ -35,7 +35,7 @@ export default function SearchBar() {
 					<Image					
 						src={Search}
 						alt="search icon"
-						className="w-4 top-1/2 -translate-y-1/2 absolute right-4 lg:right-0 "
+						className="w-4 top-1/2 -translate-y-1/2 absolute right-8 lg:right-0 "
 					/>
 				)}
 				</div>

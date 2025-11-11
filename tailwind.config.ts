@@ -13,7 +13,7 @@ export default {
         gray666: '#666666',
         gray333: '#333333',
         purple: '#7C4EE4',
-        bodyColor:'#f3f3f3',
+        bodyColor:'#FAFAFA',
         grayBorder:'#DBDBDB',
         
       },
@@ -26,6 +26,11 @@ export default {
         'tab': '685px',
         'desktoplg': '1137'
       },
+      borderRadius:{
+        DEFAULT: '11.17px',
+        'sm': '5.59px',
+      }
+      
     },
   },
   plugins: [],

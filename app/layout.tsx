@@ -38,11 +38,8 @@ export default function RootLayout({
 					className={`${raleway.variable} ${roboto.variable} antialiased `}
 				>
 					<Navigation />
-					{/* <div className="flex"> */}
-						{/* <AdminAsideNav /> */}
 						{children}
-					{/* </div> */}
-					{/* <Footer /> */}
+					<Footer />
 				</body>
 			</html>
 		</SessionWrapper>

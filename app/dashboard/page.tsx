@@ -31,10 +31,9 @@ const HomePage = () => {
 			{status === "loading" && <p>Loading...</p>}
 			{status === "authenticated" && (
 				<div>
-
 				<div className="flex">
 					<AdminAsideNav />
-					<div>
+					<div className="bg-[#f9fafb]  w-full pt-10 pb-20 px-10">
 						{tab === "dash" && <DashProfile />}
 						{tab === "posts" && <Posts />}
 					</div>
