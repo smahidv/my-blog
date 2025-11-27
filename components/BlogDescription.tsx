@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { PostType } from "@/app/types";
 
 export default function BlogDescription({ post }: { post: PostType }) {

@@ -62,7 +62,7 @@ export default async function Home() {
 							className=" rounded-[11.49px] desktop:rounded-[16px] w-full lg:h-[413px] desktop:h-[576px] object-cover "
 						/>
 					)}
-					<div className="mt-[26.7px] bg-white  lg:mt-0 lg:absolute lg:top-[241.26px] lg:right-0 lg:rounded-[11.49px] max-w-[660.59px] desktop:max-w-[920px] desktop:rounded-[16px] lg:p-[23px] lg:pr-[74.67px] desktop:pr-[104px] desktop:p-8 ">
+					<div className="mt-[26.7px] bg-white  lg:mt-0 lg:absolute lg:top-[350px] lg:right-0 lg:rounded-[11.49px] max-w-[660.59px] desktop:max-w-[920px] desktop:rounded-[16px] lg:p-[23px] lg:pr-[74.67px] desktop:pr-[104px] desktop:p-8 ">
 						<BlogDescription post={recentsPosts[0]} />
 					</div>
 				</section>

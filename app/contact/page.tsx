@@ -1,4 +1,4 @@
-import GoogleMapComponent from "@/components/GoogleMapComponent";
+
 import { contactContent } from "@/constant";
 import Image from "next/image";
 

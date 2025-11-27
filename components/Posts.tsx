@@ -1,5 +1,5 @@
 "use client";
-import { deletePost, getPosts } from "@/app/actions/post";
+import { getPosts } from "@/app/actions/post";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ export default function Posts() {
 	  };
 	
 	  const handleDeletePost = async (postIdToDelete:string) => {	
-		  const res = await deletePost(postIdToDelete);
+		//   const res = await deletePost(postIdToDelete);
 			const newPosts = postData.filter(
 			  (post) => post._id !== postIdToDelete
 			);

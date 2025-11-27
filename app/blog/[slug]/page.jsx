@@ -4,19 +4,15 @@ import Image from "next/image";
 
 
 
-interface MyParams {
-	params: {
-		slug: string;
-	};
-}
 
-async function getData(slug: string) {
+
+async function getData(slug) {
 	const res = await getPost(slug);
 	return res;
 }
 
 // Generate dynamic metadata (SEO)
-export const generateMetadata = async ({ params }: MyParams) => {
+export const generateMetadata = async ({ params }) => {
 	const { slug } = await params;
 	const post = await getData(slug);
 	return {
@@ -25,8 +21,8 @@ export const generateMetadata = async ({ params }: MyParams) => {
 	};
 };
 
-const SinglePostPage = async ({ params }: MyParams) => {
-	const { slug } = await params;
+const SinglePostPage = async ({ params }) => {
+	const { slug } =  params;
 	const post = await getData(slug);
 	if (!post) {
 		return <NotFound />;

@@ -3,12 +3,20 @@ import { redirect } from "next/navigation";
 import Posts from "@/components/Posts";
 import DashProfile from "@/components/DashProfile";
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import AdminAsideNav from "@/components/AdminAsideNav";
 
 const HomePage = () => {
-	const searchParams = useSearchParams();
+		// const searchParams = useSearchParams();
+	// useEffect(() => {
+	// 	const urlParams = new URLSearchParams(searchParams);
+	// 	const tabFromUrl = urlParams.get("tab");
+	// 	if (tabFromUrl) {
+	// 		setTab(tabFromUrl);
+	// 	}
+	// }, [searchParams]);
+
 	const [tab, setTab] = useState("");
 	const { status } = useSession();
 
@@ -18,13 +26,7 @@ const HomePage = () => {
 		return null;
 	}
 
-	useEffect(() => {
-		const urlParams = new URLSearchParams(searchParams);
-		const tabFromUrl = urlParams.get("tab");
-		if (tabFromUrl) {
-			setTab(tabFromUrl);
-		}
-	}, [searchParams]);
+	
 
 	return (
 		<div>

@@ -4,7 +4,7 @@ import { unstable_noStore as noStore } from "next/cache";
 
 
 
-export const getUser = async (id: string) => {
+export const getUser = async (id) => {
   noStore();
   try {
     connectToDb();
@@ -16,7 +16,7 @@ export const getUser = async (id: string) => {
   }
 };
 
-export async function createUser(user: Record<string, any>) {
+export async function createUser(user) {
   try {
     const newUser = await User.create(user);
     return newUser;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
+import { Alert, Button, FileInput, TextInput } from "flowbite-react";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -40,7 +40,7 @@ export default function UpdatePostPage() {
 		e.preventDefault();
 		try {
 			if (!session || !session.user) {
-				console.error("User not authenticated");
+				console.log("User not authenticated");
 				return;
 			}
 
@@ -59,7 +59,7 @@ export default function UpdatePostPage() {
 				router.push(`/blog/${postId}`);
 			}
 		} catch (error) {
-			console.error(error);
+			console.log(error);
 		}
 	};
 
@@ -88,7 +88,7 @@ export default function UpdatePostPage() {
 				setImageUploadError(data.error);
 			}
 		} catch (error) {
-			setImageUploadError("Upload failed. Please try again.");
+			setImageUploadError(String(error));
 		} finally {
 			setTimeout(() => setImageUploadProgress(0), 2000); // Reset after showing progress
 		}

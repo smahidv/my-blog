@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import cloudinary from "@/cloudinary";
 
 export async function POST(req: Request) {
-  try {
+
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
 
@@ -24,7 +24,5 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true, data: uploadResult });
-  } catch (error) {
-    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
-  }
+
 }

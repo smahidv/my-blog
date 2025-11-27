@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
+import { Alert, Button, FileInput, TextInput } from "flowbite-react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -9,26 +9,21 @@ import "react-quill-new/dist/quill.snow.css";
 import { useSession } from "next-auth/react";
 import { createPost } from "@/app/actions/post";
 import { PostType } from "@/app/types";
-import { useParams } from 'next/navigation'
-// import { CircularProgressbar } from "react-circular-progressbar";
-// import "react-circular-progressbar/dist/styles.css";
 
 export default function CreatePostPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [desc, setDesc] = useState<string>("");
-  const [file, setFile] = useState<string>(""); // Store image URL, not File
-  const [imageFile, setImageFile] = useState<File | null>(null); // Actual file state
+  const [file, setFile] = useState<string>(""); // Image URL
+  const [imageFile, setImageFile] = useState<File | null>(null); // Actual file
   const [imageUploadProgress, setImageUploadProgress] = useState<number>(0);
   const [imageUploadError, setImageUploadError] = useState<string | null>(null);
-  const params = useParams<{ id: string}>()
-
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       if (!session || !session.user) {
-        console.error("User not authenticated");
+        console.log("User not authenticated");
         return;
       }
 
@@ -37,7 +32,7 @@ export default function CreatePostPage() {
         title: formData.get("title") as string,
         category: formData.get("category") as string,
         desc: desc,
-        img: file, // Store uploaded image URL
+        img: file,
         userId: session.user.id as string,
         slug: "",
       };
@@ -48,7 +43,7 @@ export default function CreatePostPage() {
         router.push(`/blog/${res.data.slug}`);
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error creating post:", error);
     }
   };
 
@@ -61,7 +56,7 @@ export default function CreatePostPage() {
     const formData = new FormData();
     formData.append("file", imageFile);
 
-    setImageUploadProgress(10); // Start progress
+    setImageUploadProgress(10);
 
     try {
       const res = await fetch("/api/upload", {
@@ -71,28 +66,46 @@ export default function CreatePostPage() {
 
       const data = await res.json();
       if (data.success) {
-        setFile(data.data.secure_url); // Save uploaded image URL
-        setImageUploadProgress(100); // Upload complete
+        setFile(data.data.secure_url);
+        setImageUploadProgress(100);
       } else {
         setImageUploadError(data.error);
       }
     } catch (error) {
-      setImageUploadError("Upload failed. Please try again.");
+      setImageUploadError(String(error));
     } finally {
-      setTimeout(() => setImageUploadProgress(0), 2000); // Reset after showing progress
+      setTimeout(() => setImageUploadProgress(0), 2000);
     }
   };
 
   return (
     <div>
       {status === "loading" && <p>Loading...</p>}
+
       {status === "authenticated" && (
         <div className="p-3 max-w-3xl mx-auto min-h-screen">
-          <h1 className="text-center text-3xl my-7 font-semibold">Create a post</h1>
+          <h1 className="text-center text-3xl my-7 font-semibold">
+            Create a post
+          </h1>
+
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-4 sm:flex-row justify-between">
-              <TextInput type="text" placeholder="Title" required id="title" className="flex-1" name="title" />
-              <TextInput type="text" placeholder="category" required id="category" className="flex-1" name="category" />
+              <TextInput
+                type="text"
+                placeholder="Title"
+                required
+                id="title"
+                className="flex-1"
+                name="title"
+              />
+              <TextInput
+                type="text"
+                placeholder="Category"
+                required
+                id="category"
+                className="flex-1"
+                name="category"
+              />
             </div>
 
             <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
@@ -110,10 +123,7 @@ export default function CreatePostPage() {
                 disabled={imageUploadProgress > 0}
               >
                 {imageUploadProgress > 0 ? (
-                  <div className="w-16 h-16">
-                    {/* <CircularProgressbar value={imageUploadProgress} text={`${imageUploadProgress}%`} /> */}
-					<p className="text-center">{imageUploadProgress}%</p>
-                  </div>
+                  <p className="text-center">{imageUploadProgress}%</p>
                 ) : (
                   "Upload Image"
                 )}
@@ -123,7 +133,11 @@ export default function CreatePostPage() {
             {imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
 
             {file && (
-              <img src={file} alt="Uploaded" className="w-full h-72 object-cover" />
+              <img
+                src={file}
+                alt="Uploaded"
+                className="w-full h-72 object-cover"
+              />
             )}
 
             <ReactQuill
@@ -133,12 +147,18 @@ export default function CreatePostPage() {
               value={desc}
               onChange={setDesc}
             />
-            <Button type="submit" gradientDuoTone="purpleToPink" className="text-black">
+
+            <Button
+              type="submit"
+              gradientDuoTone="purpleToPink"
+              className="text-black"
+            >
               Publish
             </Button>
           </form>
         </div>
       )}
+
       {status === "unauthenticated" && (
         <h1 className="text-center text-3xl my-7 font-semibold">
           You are not authorized to view this page
